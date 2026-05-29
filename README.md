@@ -67,7 +67,7 @@ MongoDB should be running before starting the app.
 Open PowerShell in the project folder:
 
 ```powershell
-cd "C:\Users\YASHI\OneDrive\Documents\node & mongo"
+cd "C:\Users\USER\\Documents\node & mongo"
 ```
 
 Install dependencies:
