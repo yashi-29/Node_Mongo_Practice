@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Item</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell narrow">
+    <section class="header">
+      <div>
+        <h1>Update Item</h1>
+      </div>
+      <a href="/items" class="back-link">Back</a>
+    </section>
+
+    <section class="panel">
+      <% if (error) { %>
+        <p class="alert"><%= error %></p>
+      <% } %>
+
+      <form action="/items/<%= item._id %>?_method=PUT" method="POST" class="form-grid">
+        <label>
+          Name
+          <input type="text" name="name" value="<%= item.name %>" required maxlength="80">
+        </label>
+
+        <label>
+          Description
+          <textarea name="description" rows="4" maxlength="500"><%= item.description %></textarea>
+        </label>
+
+        <label>
+          Age
+          <input type="number" name="age" value="<%= item.age %>" required maxlength="3">
+        </label>
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

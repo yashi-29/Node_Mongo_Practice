@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Items</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="header">
+      <div>
+        <h1>Item Manager</h1>
+      </div>
+      <div class="header-actions">
+        <span class="count"><%= items.length %> item<%= items.length === 1 ? '' : 's' %></span>
+        <form action="/logout" method="POST">
+          <button type="submit" class="logout">Logout</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Add Item</h2>
+
+      <% if (error) { %>
+        <p class="alert"><%= error %></p>
+      <% } %>
+
+      <form action="/items" method="POST" class="form-grid">
+        <label>
+          Name
+          <input type="text" name="name" value="<%= form.name || '' %>" placeholder="Notebook" required maxlength="80">
+        </label>
+
+        <label>
+          Description
+          <textarea name="description" rows="3" placeholder="Add a short note" maxlength="500"><%= form.description || '' %></textarea>
+        </label>
+
+        <label>
+          Age
+          <input type="number" name="age" value="<%= form.age || '' %>" placeholder="Age" required maxlength="3">
+        </label>
+
+        <button type="submit">Create</button>
+      </form>
+    </section>
+
+    <section class="items">
+      <% if (items.length === 0) { %>
+        <div class="empty">
+          <h2>No items yet</h2>
+          <p>Create your first item using the form above.</p>
+        </div>
+      <% } %>
+
+      <% items.forEach((item) => { %>
+        <article class="item-card">
+          <div>
+            <h2><%= item.name %></h2>
+            <p>Description: <%= item.description || 'No description added.' %>, Age: <%= item.age || 'Age not specified' %></p>
+            <small>
+              <%= item.createdAt ? `Created ${item.createdAt.toLocaleString()}` : 'Created date unavailable' %>
+            </small>
+          </div>
+
+          <div class="actions">
+            <a href="/items/<%= item._id %>/edit">Edit</a>
+            <form action="/items/<%= item._id %>?_method=DELETE" method="POST">
+              <button type="submit" class="danger">Delete</button>
+            </form>
+          </div>
+        </article>
+      <% }) %>
+    </section>
+  </main>
+</body>
+</html>
